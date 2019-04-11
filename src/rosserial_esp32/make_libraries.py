@@ -83,8 +83,8 @@ rosserial_esp32_dir = rospack.get_path(THIS_PACKAGE)
 files = os.listdir(rosserial_esp32_dir+"/src/ros_lib")
 for f in files:
   if os.path.isfile(rosserial_esp32_dir+"/src/ros_lib/"+f):
-    shutil.copy(rosserial_esp32_dir+"/src/ros_lib/"+f, path+"/include/")
-rosserial_client_copy_files(rospack, path+"/include/")
+    shutil.copy(rosserial_esp32_dir+"/src/ros_lib/"+f, path+"/main/include/")
+rosserial_client_copy_files(rospack, path+"/main/include/")
 
 # generate messages
-rosserial_generate(rospack, path+"/include/", ROS_TO_EMBEDDED_TYPES)
+rosserial_generate(rospack, path+"/main/include/", ROS_TO_EMBEDDED_TYPES)
