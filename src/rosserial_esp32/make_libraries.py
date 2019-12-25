@@ -72,6 +72,7 @@ if (len(sys.argv) < 2):
 
 # get output path
 path = sys.argv[1]
+
 if path[-1] == "/":
     path = path[0:-1]
 print "\nExporting to %s" % path
@@ -88,8 +89,12 @@ if not os.path.exists(path+"/rosserial_esp32/"):
 rosserial_esp32_dir = rospack.get_path(THIS_PACKAGE)
 files = os.listdir(rosserial_esp32_dir+"/src/ros_lib")
 for f in files:
-  if os.path.isfile(rosserial_esp32_dir+"/src/ros_lib/"+f):
-    shutil.copy(rosserial_esp32_dir+"/src/ros_lib/"+f, path+"/rosserial_esp32/include/")
+    if os.path.isfile(rosserial_esp32_dir+"/src/ros_lib/"+f):
+        if f.endswith(".h"):
+            shutil.copy(rosserial_esp32_dir+"/src/ros_lib/"+f, path+"/rosserial_esp32/include/")
+        else:
+            shutil.copy(rosserial_esp32_dir+"/src/ros_lib/"+f, path+"/rosserial_esp32/")
+
 rosserial_client_copy_files(rospack, path+"/rosserial_esp32/include/")
 
 # generate messages
